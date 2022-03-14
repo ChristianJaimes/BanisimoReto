@@ -1,5 +1,7 @@
 package com.banistmo.certification.stepDefinitions;
 
+import com.banistmo.certification.tasks.DownloadDocument;
+import com.banistmo.certification.tasks.NavegateTo;
 import com.banistmo.certification.userInterface.URLHomeBanistmo;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -25,11 +27,18 @@ public class ValidarDocumentoPJStepDefinition {
 
     @When("^navega hasta la seccion de FATCA & CRS$")
     public void navegaHastaLaSeccionDeFATCACRS() throws Exception {
-
+        theActorInTheSpotlight().attemptsTo(NavegateTo.factaDocuments());
     }
 
     @When("^descaga el documento$")
     public void descagaElDocumento() throws Exception {
+        theActorInTheSpotlight().attemptsTo(DownloadDocument.PJAutoCertificacionFACTA());
+        try {
+            Thread.sleep(30000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
 
     }
 
