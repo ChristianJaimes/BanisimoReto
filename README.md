@@ -1,2 +1,2 @@
-# BanisimoReto
+# BanistmoReto
 Reto de automatización
