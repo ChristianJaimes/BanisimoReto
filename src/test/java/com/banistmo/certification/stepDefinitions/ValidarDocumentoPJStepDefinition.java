@@ -1,5 +1,6 @@
 package com.banistmo.certification.stepDefinitions;
 
+import com.banistmo.certification.abilities.ReadPdf;
 import com.banistmo.certification.tasks.DownloadDocument;
 import com.banistmo.certification.tasks.NavegateTo;
 import com.banistmo.certification.userInterface.URLHomeBanistmo;
@@ -11,9 +12,17 @@ import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
+import  net.thucydides.core.util.EnvironmentVariables;
+
+
+import java.io.IOException;
 
 import static net.serenitybdd.screenplay.actors.OnStage.*;
 public class ValidarDocumentoPJStepDefinition {
+
+    private EnvironmentVariables environmentVariables;
+    String downloadFolder;
+    String fileName;
 
     @Before
     public void setup(){
@@ -44,6 +53,13 @@ public class ValidarDocumentoPJStepDefinition {
 
     @Then("^se valida que el documento es el correcto$")
     public void seValidaQueElDocumentoEsElCorrecto() throws Exception {
+        downloadFolder = environmentVariables.optionalProperty("download.filesFolder").orElseThrow(IllegalArgumentException::new);
+        fileName = environmentVariables.optionalProperty("statements.fileName").orElseThrow(IllegalArgumentException::new);
+        String statementFilePath = String.format("%s/%s", downloadFolder,fileName);
+
+        theActorInTheSpotlight().whoCan(ReadPdf.downloadedInPath(statementFilePath));
+        String pdfText = ReadPdf.as(theActorInTheSpotlight()).getText();
+        System.out.println(pdfText);
 
     }
 }
