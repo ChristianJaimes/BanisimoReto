@@ -27,8 +27,11 @@ ext {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.16'
+
+
+    // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
+    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
+
 
 
     testImplementation("net.serenity-bdd:serenity-core:1.1.1")
